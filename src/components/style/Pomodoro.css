@@ -1,14 +1,14 @@
 .pomodoro-clock-header {
   text-align: center;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 
 .pomodoro-clock-header-name {
   text-transform: capitalize;
   display: inline-block;
   position: relative;
-  background-color: #0e9aa7;
-  padding: 0px 10px;
+  background-color: #D2691E;
+  padding: 5px 100px;
 }
 
 .pomodoro-clock-header-name::before {

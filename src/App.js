@@ -6,6 +6,7 @@ import LogIn from "./components/login";
 import LogOut from "./components/logout";
 import { Container, Row, Col } from "react-bootstrap";
 import Pomodoro from "./components/Pomodoro";
+//import SnakeGame from "./SnakeGame";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className="container" mg>
+
       {loading ? (
         <div>Loading...</div>
       ) : (

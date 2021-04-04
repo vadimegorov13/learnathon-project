@@ -16,8 +16,8 @@
 .settings-section button {
   font-size: 1.1rem;
   font-weight: 700;
-  border: 1px solid #4ebfc9;
-  background-color: transparent;
+  border: 1px solid #D2691E;
+  background-color: #D2691E;
   color: #fff;
   border-radius: 6px;
   outline: none;
@@ -33,7 +33,7 @@
 
 .settings-section button:not(.disable):hover {
   cursor: pointer;
-  background-color: #4ebfc9;
+  background-color: #A52A2A;
 }
 
 .settings-section button.disable {

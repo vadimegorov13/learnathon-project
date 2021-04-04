@@ -3,6 +3,7 @@ import Settings from './Settings';
 import Times from './Times';
 import Controller from './Controller';
 import './style/Pomodoro.css';
+import SnakeGame from './SnakeGame';
 
 export default class Pomodoro extends Component {
   constructor(props) {
@@ -110,7 +111,7 @@ export default class Pomodoro extends Component {
       this.audioBeep.current.play();
     } else if (this.state.timeLeftInSecond === -1) {
       if (this.state.timeLabel === 'Session') {
-        this.setState({
+        this.setState({ 
           timeLabel: 'Break',
           timeLeftInSecond: this.state.breakLength * 60
         });
@@ -127,7 +128,7 @@ export default class Pomodoro extends Component {
     return (
       <div className="pomodoro-clock">
         <div className="pomodoro-clock-header">
-          <h1 className="pomodoro-clock-header-name">pomodoro clock</h1>
+          <h1 className="pomodoro-clock-header-name">pomodoro timer</h1>
         </div>
 
         <Settings
