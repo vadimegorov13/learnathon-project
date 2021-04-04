@@ -29,7 +29,8 @@ function App() {
               <Col sm={8}>
                 <Pomodoro defaultBreakLength={5} defaultSessionLength={25}/>
               </Col>
-              <Col sm={4}>sm=4</Col>
+              <Col sm={4}>Chat and room and stuff willn be here
+              </Col>
             </Row>
           </Container>
 
