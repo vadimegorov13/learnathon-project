@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   return (
-    <div className="container" mg>
+    <div className="container" mg >
       {loading ? (
         <div>Loading...</div>
       ) : (

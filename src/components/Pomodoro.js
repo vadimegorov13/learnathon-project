@@ -75,6 +75,7 @@ export default class Pomodoro extends Component {
         Number.parseInt(this.props.defaultSessionLength, 10) * 60,
       isStart: false,
       timerInterval: null,
+      isBreak: false
     });
 
     this.audioBeep.current.pause();
@@ -99,6 +100,7 @@ export default class Pomodoro extends Component {
       this.setState({
         isStart: !this.state.isStart,
         timerInterval: null,
+        
       });
     }
   }
