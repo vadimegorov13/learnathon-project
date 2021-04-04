@@ -3,13 +3,13 @@ import {Button} from "react-bootstrap"
 
 const LogIn = () => (
   <div className="container">
-    <Button variant="primary"
+    <button
       onClick={() => {
         auth.signInWithPopup(new firebaseRef.auth.GoogleAuthProvider());
       }}
     >
       Login with Google
-    </Button>
+    </button>
   </div>
 );
 

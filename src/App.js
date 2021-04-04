@@ -6,12 +6,12 @@ import LogIn from "./components/login";
 import LogOut from "./components/logout";
 import { Container, Row, Col } from "react-bootstrap";
 import Pomodoro from "./components/Pomodoro";
+import RightSide from "./components/RightSide";
 //import SnakeGame from "./SnakeGame";
 
 function App() {
   const [user] = useAuthState(auth);
   const [loading, setLoading] = useState(true);
-  const [pomodoroRoom, setPomodoroRoom] = useState("alone");
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,7 +31,7 @@ function App() {
                 <Pomodoro defaultBreakLength={5} defaultSessionLength={25} />
               </Col>
               <Col sm={4}>
-                <div>{user ? <LogOut /> : <LogIn />}</div>
+               <RightSide/>
               </Col>
             </Row>
           </Container>
