@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "learnathon-cool-project",
+    "firebase-react-deploy": "learnathon-cool-project"
+  }
+}
