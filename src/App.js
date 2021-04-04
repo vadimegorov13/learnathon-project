@@ -21,7 +21,6 @@ function App() {
 
   return (
     <div className="container" mg>
-
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -29,14 +28,13 @@ function App() {
           <Container>
             <Row>
               <Col sm={8}>
-                <Pomodoro defaultBreakLength={5} defaultSessionLength={25}/>
+                <Pomodoro defaultBreakLength={5} defaultSessionLength={25} />
               </Col>
-              <Col sm={4}>Chat and room and stuff willn be here
+              <Col sm={4}>
+                <div>{user ? <LogOut /> : <LogIn />}</div>
               </Col>
             </Row>
           </Container>
-
-          {/* <div>{user ? <LogOut /> : <LogIn />}</div> */}
         </div>
       )}
     </div>

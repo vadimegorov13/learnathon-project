@@ -29,3 +29,9 @@
   font-size: 5rem;
   font-weight: 700;
 }
+
+#time-left-break {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 25px;
+}

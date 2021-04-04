@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Settings from './Settings';
-import Times from './Times';
-import Controller from './Controller';
-import './style/Pomodoro.css';
-import SnakeGame from './SnakeGame';
+import React, { Component } from "react";
+import Settings from "./Settings";
+import Times from "./Times";
+import Controller from "./Controller";
+import "./style/Pomodoro.css";
+import SnakeGame from "./SnakeGame";
 
 export default class Pomodoro extends Component {
   constructor(props) {
@@ -14,11 +14,13 @@ export default class Pomodoro extends Component {
     this.state = {
       breakLength: Number.parseInt(this.props.defaultBreakLength, 10),
       sessionLength: Number.parseInt(this.props.defaultSessionLength, 10),
-      timeLabel: 'Session',
-      timeLeftInSecond: Number.parseInt(this.props.defaultSessionLength, 10) * 60,
+      timeLabel: "Session",
+      timeLeftInSecond:
+        Number.parseInt(this.props.defaultSessionLength, 10) * 60,
       isStart: false,
-      timerInterval: null
-    }
+      timerInterval: null,
+      isBreak: false,
+    };
 
     this.onIncreaseBreak = this.onIncreaseBreak.bind(this);
     this.onDecreaseBreak = this.onDecreaseBreak.bind(this);
@@ -33,7 +35,7 @@ export default class Pomodoro extends Component {
   onIncreaseBreak() {
     if (this.state.breakLength < 60 && !this.state.isStart) {
       this.setState({
-        breakLength: this.state.breakLength + 1
+        breakLength: this.state.breakLength + 1,
       });
     }
   }
@@ -41,7 +43,7 @@ export default class Pomodoro extends Component {
   onDecreaseBreak() {
     if (this.state.breakLength > 1 && !this.state.isStart) {
       this.setState({
-        breakLength: this.state.breakLength - 1
+        breakLength: this.state.breakLength - 1,
       });
     }
   }
@@ -50,7 +52,7 @@ export default class Pomodoro extends Component {
     if (this.state.sessionLength < 60 && !this.state.isStart) {
       this.setState({
         sessionLength: this.state.sessionLength + 1,
-        timeLeftInSecond: (this.state.sessionLength + 1) * 60
+        timeLeftInSecond: (this.state.sessionLength + 1) * 60,
       });
     }
   }
@@ -59,7 +61,7 @@ export default class Pomodoro extends Component {
     if (this.state.sessionLength > 1 && !this.state.isStart) {
       this.setState({
         sessionLength: this.state.sessionLength - 1,
-        timeLeftInSecond: (this.state.sessionLength - 1) * 60
+        timeLeftInSecond: (this.state.sessionLength - 1) * 60,
       });
     }
   }
@@ -68,10 +70,11 @@ export default class Pomodoro extends Component {
     this.setState({
       breakLength: Number.parseInt(this.props.defaultBreakLength, 10),
       sessionLength: Number.parseInt(this.props.defaultSessionLength, 10),
-      timeLabel: 'Session',
-      timeLeftInSecond: Number.parseInt(this.props.defaultSessionLength, 10) * 60,
+      timeLabel: "Session",
+      timeLeftInSecond:
+        Number.parseInt(this.props.defaultSessionLength, 10) * 60,
       isStart: false,
-      timerInterval: null
+      timerInterval: null,
     });
 
     this.audioBeep.current.pause();
@@ -86,8 +89,8 @@ export default class Pomodoro extends Component {
         timerInterval: setInterval(() => {
           this.decreaseTimer();
           this.phaseControl();
-        }, 1000)
-      })
+        }, 1000),
+      });
     } else {
       this.audioBeep.current.pause();
       this.audioBeep.current.currentTime = 0;
@@ -95,14 +98,14 @@ export default class Pomodoro extends Component {
 
       this.setState({
         isStart: !this.state.isStart,
-        timerInterval: null
+        timerInterval: null,
       });
     }
   }
 
   decreaseTimer() {
     this.setState({
-      timeLeftInSecond: this.state.timeLeftInSecond - 1
+      timeLeftInSecond: this.state.timeLeftInSecond - 1,
     });
   }
 
@@ -110,54 +113,98 @@ export default class Pomodoro extends Component {
     if (this.state.timeLeftInSecond === 0) {
       this.audioBeep.current.play();
     } else if (this.state.timeLeftInSecond === -1) {
-      if (this.state.timeLabel === 'Session') {
-        this.setState({ 
-          timeLabel: 'Break',
-          timeLeftInSecond: this.state.breakLength * 60
+      if (this.state.timeLabel === "Session") {
+        this.setState({
+          timeLabel: "Break",
+          timeLeftInSecond: this.state.breakLength * 60,
+          isBreak: true,
         });
       } else {
         this.setState({
-          timeLabel: 'Session',
-          timeLeftInSecond: this.state.sessionLength * 60
+          timeLabel: "Session",
+          timeLeftInSecond: this.state.sessionLength * 60,
+          isBreak: false,
         });
       }
     }
   }
 
   render() {
-    return (
-      <div className="pomodoro-clock">
-        <div className="pomodoro-clock-header">
-          <h1 className="pomodoro-clock-header-name">pomodoro timer</h1>
+    if (this.state.isBreak) {
+      return (
+        <div className="pomodoro-clock">
+          <div className="pomodoro-clock-header">
+            <h1 className="pomodoro-clock-header-name">pomodoro timer</h1>
+          </div>
+
+          <Settings
+            breakLength={this.state.breakLength}
+            sessionLength={this.state.sessionLength}
+            isStart={this.state.isStart}
+            onDecreaseBreak={this.onDecreaseBreak}
+            onDecreaseSession={this.onDecreaseSession}
+            onIncreaseBreak={this.onIncreaseBreak}
+            onIncreaseSession={this.onIncreaseSession}
+          />
+
+          <Times
+            timeLabel={this.state.timeLabel}
+            timeLeftInSecond={this.state.timeLeftInSecond}
+            isBreak={this.state.isBreak}
+          />
+
+          <SnakeGame />
+
+          <Controller
+            onReset={this.onReset}
+            onStartStop={this.onStartStop}
+            isStart={this.state.isStart}
+          />
+
+          <audio
+            id="beep"
+            preload="auto"
+            src="https://goo.gl/65cBl1"
+            ref={this.audioBeep}
+          ></audio>
         </div>
+      );
+    } else {
+      return (
+        <div className="pomodoro-clock">
+          <div className="pomodoro-clock-header">
+            <h1 className="pomodoro-clock-header-name">pomodoro timer</h1>
+          </div>
 
-        <Settings
-          breakLength={this.state.breakLength}
-          sessionLength={this.state.sessionLength}
-          isStart={this.state.isStart}
-          onDecreaseBreak={this.onDecreaseBreak}
-          onDecreaseSession={this.onDecreaseSession}
-          onIncreaseBreak={this.onIncreaseBreak}
-          onIncreaseSession={this.onIncreaseSession}
-        />
+          <Settings
+            breakLength={this.state.breakLength}
+            sessionLength={this.state.sessionLength}
+            isStart={this.state.isStart}
+            onDecreaseBreak={this.onDecreaseBreak}
+            onDecreaseSession={this.onDecreaseSession}
+            onIncreaseBreak={this.onIncreaseBreak}
+            onIncreaseSession={this.onIncreaseSession}
+          />
 
-        <Times
-          timeLabel={this.state.timeLabel}
-          timeLeftInSecond={this.state.timeLeftInSecond}
-        />
+          <Times
+            timeLabel={this.state.timeLabel}
+            timeLeftInSecond={this.state.timeLeftInSecond}
+          />
 
-        <Controller
-          onReset={this.onReset}
-          onStartStop={this.onStartStop}
-          isStart={this.state.isStart}
-        />
+          <Controller
+            onReset={this.onReset}
+            onStartStop={this.onStartStop}
+            isStart={this.state.isStart}
+          />
 
-        <audio id="beep" preload="auto" src="https://goo.gl/65cBl1" ref={this.audioBeep}></audio>
-        
-
-        
-
-      </div>
-    );
+          <audio
+            id="beep"
+            preload="auto"
+            src="https://goo.gl/65cBl1"
+            ref={this.audioBeep}
+          ></audio>
+        </div>
+      );
+    }
   }
 }

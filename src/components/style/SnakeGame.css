@@ -2,6 +2,7 @@
 	position: relative;
 	margin: auto;
 	border-style: solid;
+	margin-bottom: 25px;
 }
 
 #GameBoard .Block {
