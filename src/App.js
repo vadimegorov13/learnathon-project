@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import LogIn from "./components/login";
 import LogOut from "./components/logout";
 import { Container, Row, Col } from "react-bootstrap";
+import Pomodoro from "./components/Pomodoro";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -18,14 +19,16 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container" mg>
       {loading ? (
         <div>Loading...</div>
       ) : (
         <div>
           <Container>
             <Row>
-              <Col sm={8}>sm=8</Col>
+              <Col sm={8}>
+                <Pomodoro defaultBreakLength={5} defaultSessionLength={25}/>
+              </Col>
               <Col sm={4}>sm=4</Col>
             </Row>
           </Container>
