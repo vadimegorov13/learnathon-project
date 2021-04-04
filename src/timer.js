@@ -1,23 +1,11 @@
-
-import './App.css';
+import "./App.css";
 
 function Timer() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-            yo
-            sdfsdfsd
-            sdf
-            sd
-            fsd
-            f
-            sdf
-            ssdf
-        </div>
+        <div></div>
       </header>
-
-      
     </div>
   );
 }
